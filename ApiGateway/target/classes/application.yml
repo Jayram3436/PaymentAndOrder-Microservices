@@ -1,0 +1,24 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: ApiGateway
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: OrderService
+          uri: lb://OrderService
+          predicates:
+            - Path=/order/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
